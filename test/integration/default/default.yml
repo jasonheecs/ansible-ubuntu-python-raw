@@ -1,0 +1,7 @@
+---
+- name: Setup
+  hosts: all
+  become: yes
+  gather_facts: false
+  roles:
+    - { role: ansible-ubuntu-python-raw }

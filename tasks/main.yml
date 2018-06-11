@@ -1,0 +1,12 @@
+---
+- name: Install Python 3.x
+  raw: which python3 || sudo apt-get update && sudo apt-get install -qq -y python3-minimal
+  register: python_check
+  changed_when: not python_check.stdout is search('/usr/bin/python3')
+  when: python_version == 3
+
+- name: Install Python 2.x
+  raw: which python || sudo apt-get update && sudo apt-get install -qq -y python-minimal
+  register: python_check
+  changed_when: not python_check.stdout is search('/usr/bin/python')
+  when: python_version == 2
