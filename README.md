@@ -39,7 +39,7 @@ Example Playbook
   become: yes
   gather_facts: false # You must disable the gather of facts for this role to work as intended
   roles:
-    - { role: ansible-ubuntu-python-raw }
+    - { role: jasonheecs.ubuntu-python-raw }
 ```
 
 
