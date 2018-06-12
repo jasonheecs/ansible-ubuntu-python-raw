@@ -5,3 +5,5 @@
   gather_facts: false
   roles:
     - { role: ansible-ubuntu-python-raw }
+  vars:
+    - python_version: 2

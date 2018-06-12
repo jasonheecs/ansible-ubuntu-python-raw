@@ -12,18 +12,29 @@ provisioner:
   idempotency_test: true
 
 platforms:
+  - name: ubuntu-18.04
   - name: ubuntu-16.04
-    driver_config:
-      image: williamyeh/ansible:ubuntu16.04-onbuild
-      platform: ubuntu
+  - name: ubuntu-14.04
+  - name: ubuntu-12.04
 
 verifier:
   name: serverspec
 
 suites:
-  - name: default
+  - name: python3
     driver:
-      provision_command: export LC_ALL=C
+      provision_command:
+        - export LC_ALL=C
+        - mkdir -p /run/sshd
+    verifier:
+      default_pattern: true
+      bundler_path: '/usr/local/bin'
+      rspec_path: '/usr/local/bin'
+  - name: python2
+    driver:
+      provision_command:
+        - export LC_ALL=C
+        - mkdir -p /run/sshd
     verifier:
       default_pattern: true
       bundler_path: '/usr/local/bin'
