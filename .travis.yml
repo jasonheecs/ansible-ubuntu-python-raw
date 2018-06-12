@@ -10,7 +10,6 @@ env:
   - UBUNTU_VERSION: ubuntu-18
   - UBUNTU_VERSION: ubuntu-16
   - UBUNTU_VERSION: ubuntu-14
-  - UBUNTU_VERSION: ubuntu-12
 
 cache:
   pip: true
@@ -32,7 +31,7 @@ script:
   - docker version
   - export LC_ALL=C
   - bundle show
-  - bundle exec kitchen test '${UBUNTU_VERSION}' -c
+  - bundle exec kitchen test ${UBUNTU_VERSION} -c
 
 notifications:
   email:
