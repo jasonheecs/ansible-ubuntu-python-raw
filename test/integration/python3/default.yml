@@ -1,0 +1,30 @@
+---
+- name: Run setup tasks for testing
+  hosts: all
+  tasks:
+    - name: Check for idempotency flag   
+      stat: path=/root/.test-kitchen-ran-once
+      register: flag
+
+    - name: Uninstall Python 3.x for testing
+      raw: dpkg-query --showformat='${Status}' -W python3 | grep -E "unknown ok not-installed" || sudo apt-get -y remove --purge python3
+      register: python_installed
+      changed_when: not python_installed.stdout | regex_search('unknown ok not-installed')
+      when: not flag.stat.exists
+
+- name: Create flag for idempotency tests
+  hosts: all
+  gather_facts: false
+  tasks:
+    - copy:
+        content: ""
+        dest: /root/.test-kitchen-ran-once
+        force: yes
+        mode: 0644
+
+- name: Setup
+  hosts: all
+  become: yes
+  gather_facts: false
+  roles:
+    - { role: ansible-ubuntu-python-raw }

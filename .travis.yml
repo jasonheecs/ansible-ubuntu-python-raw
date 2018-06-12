@@ -1,0 +1,40 @@
+---
+sudo: required
+services:
+  - docker
+
+language: python
+python: "2.7"
+
+env:
+  - UBUNTU_VERSION: ubuntu-18
+  - UBUNTU_VERSION: ubuntu-16
+  - UBUNTU_VERSION: ubuntu-14
+  - UBUNTU_VERSION: ubuntu-12
+
+cache:
+  pip: true
+  directories:
+    - $HOME/.rvm/gems
+
+before_install:
+  - sudo apt-get update -qq
+  - sleep 5
+  - sudo apt-get install -qq python-apt python-pycurl
+  - gem install bundler
+
+install:
+  - bundle install
+  - pip install ansible
+
+script:
+  - ansible --version
+  - docker version
+  - export LC_ALL=C
+  - bundle show
+  - bundle exec kitchen test '${UBUNTU_VERSION}' -c
+
+notifications:
+  email:
+    on_success: never
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
