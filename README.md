@@ -1,38 +1,78 @@
-Role Name
+Ansible Role: Install Python on Ubuntu machines that do not have Python pre-installed
 =========
+[![Build Status][travis-badge]][travis-link]
 
-A brief description of the role goes here.
+An ansible role that gets Ansible to work on bare Ubuntu machines that do not have Python pre-installed. It checks if python is installed, if not, it installs it via the [raw](https://docs.ansible.com/ansible/latest/modules/raw_module.html) module.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None.
+
+
+Installation
+------------
+`ansible-galaxy install jasonheecs.ubuntu-python-raw`
+
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Available variables are listed below, along with default values (see defaults/main.yml):
+
+```yaml
+python_version: 3
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
+
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yaml
+- name: Setup
+  hosts: all
+  become: yes
+  gather_facts: false # You must disable the gather of facts for this role to work as intended
+  roles:
+    - { role: ansible-ubuntu-python-raw }
+```
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+
+Tests
+---------------
+Testing is done via [Test Kitchen](https://github.com/test-kitchen/test-kitchen), [Kitchen Ansible](https://github.com/neillturner/kitchen-ansible) and [Kitchen Docker](https://github.com/test-kitchen/kitchen-docker)
+
+To run the tests, make sure [Ruby](https://www.ruby-lang.org/en/documentation/installation/) and [Docker](https://docs.docker.com/installation/#installation) are installed and run the following:
+
+```
+gem install bundler && bundle exec kitchen test
+```
+
+Refer to the [travis.yml](.travis.yml) file and [Travis build logs][travis-link] for details on the test build process and expected outputs.
+
+
+Supported Platforms
+-------
+This ansible role has been tested against the following platforms:
+- Ubuntu 18.04
+- Ubuntu 16.04
+- Ubuntu 14.04
 
 License
 -------
 
-BSD
+MIT
+
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[Jason Hee](https://jasonhee.com)
+
+[travis-badge]: https://travis-ci.com/jasonheecs/ansible-ubuntu-python-raw.svg?branch=master
+[travis-link]: https://travis-ci.com/jasonheecs/ansible-ubuntu-python-raw
