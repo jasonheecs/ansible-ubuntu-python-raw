@@ -1,6 +1,7 @@
 Ansible Role: Install Python on Ubuntu machines that do not have Python pre-installed
 =========
 [![Build Status][travis-badge]][travis-link]
+[![Galaxy Role][role-badge]][galaxy-link]
 
 An ansible role that gets Ansible to work on bare Ubuntu machines that do not have Python pre-installed. It checks if python is installed, if not, it installs it via the [raw](https://docs.ansible.com/ansible/latest/modules/raw_module.html) module.
 
@@ -74,5 +75,7 @@ Author Information
 
 [Jason Hee](https://jasonhee.com)
 
+[galaxy-link]: https://galaxy.ansible.com/jasonheecs/ubuntu-python-raw/
+[role-badge]: https://img.shields.io/ansible/role/26273.svg
 [travis-badge]: https://travis-ci.com/jasonheecs/ansible-ubuntu-python-raw.svg?branch=master
 [travis-link]: https://travis-ci.com/jasonheecs/ansible-ubuntu-python-raw
